@@ -1,12 +1,4 @@
-import { CopyBtn, GeneratorBtn, Avatar } from "./src/components/index.js";
-import * as htmlToImage from "./node_modules/html-to-image/dist/html-to-image.js";
-import {
-  toPng,
-  toJpeg,
-  toBlob,
-  toPixelData,
-  toSvg,
-} from "./node_modules/html-to-image/dist/html-to-image.js";
+import { CopyBtn, GeneratorBtn, Avatar } from "./components/index.js";
 
 export default function App({ $target }) {
   this.state = {
@@ -21,18 +13,7 @@ export default function App({ $target }) {
 
   const copyBtn = new CopyBtn({
     $target,
-    onClick: () => {
-      htmlToImage
-        .toPng($target)
-        .then(function (dataUrl) {
-          var img = new Image();
-          img.src = dataUrl;
-          document.body.appendChild(img);
-        })
-        .catch(function (error) {
-          console.error("oops, something went wrong!", error);
-        });
-    },
+    onClick: () => {},
   });
 
   const generatorBtn = new GeneratorBtn({
