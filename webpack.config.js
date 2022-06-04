@@ -1,16 +1,15 @@
-// webpack.config.js
-import path from "path";
-import { fileURLToPath } from "url";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const config = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-    filename: "main.js",
-    path: path.resolve(dirname, "./dist"),
+    filename: 'main.js',
+    path: path.resolve(dirname, 'dist'),
     clean: true,
   },
   module: {
@@ -19,7 +18,7 @@ const config = {
         test: /\.js$/,
         exclude: /(node_modules|pages)/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
         },
       },
       {
@@ -27,23 +26,34 @@ const config = {
         use: [
           { loader: MiniCssExtractPlugin.loader },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: { import: true },
           },
         ],
       },
       {
         test: /\.png$/,
-        type: "asset",
+        type: 'asset/resource',
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({ template: "./index.html" }),
-    new MiniCssExtractPlugin(),
-  ],
-  devtool: "eval-cheap-module-source-map",
-  target: "web",
+  plugins: [new HtmlWebpackPlugin({ template: './index.html' }), new MiniCssExtractPlugin()],
+  devtool: 'eval-cheap-module-source-map',
+  target: 'web',
+  devServer: {
+    contentBase: path.resolve(dirname, 'dist'),
+    compress: true,
+    hot: false,
+    historyApiFallback: true,
+    liveReload: true,
+    open: true,
+    port: 5500,
+    watchContentBase: true,
+    watchOptions: {
+      poll: 1000,
+      ignored: /node_modules/,
+    },
+  },
 };
 
 export default config;
