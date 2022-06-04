@@ -1,4 +1,4 @@
-import { CopyBtn, GeneratorBtn, Avatar } from "./components/index.js";
+import { CopyBtn, GeneratorBtn, Avatar, getFetch } from "./components/index.js";
 
 export default function App({ $target }) {
   this.state = {
@@ -15,16 +15,22 @@ export default function App({ $target }) {
     $target,
     onClick: () => {},
   });
+  
 
   const generatorBtn = new GeneratorBtn({
     $target,
-    onClick: async (name = "yangsangwoo") => {
+    onClick: async (name = "nickName") => {
       try {
         const res = await fetch(`https://robohash.org/${name}`);
+        // const nameRes = await fetch(`https://random-data-api.com/api/name/random_name`);
+        // const nameData = await nameRes.json();
+        // console.log(nameData.name);
+        getFetch(`https://random-data-api.com/api/name/random_name`);
         if (!res.ok) {
           throw new Error("Something went wrong");
         }
         const data = res.url;
+        // const nickName = nameData.name;
         this.setState({ ...this.state, src: data });
       } catch (err) {
         console.log(err);

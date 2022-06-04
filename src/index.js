@@ -5,4 +5,4 @@ const $target = $("#root");
 
 new App({ $target });
 
-console.log("hello world2");
+// console.log("hello world2");
