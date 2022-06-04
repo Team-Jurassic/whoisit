@@ -16,4 +16,6 @@ export function Avatar({ $target, initialState }) {
   this.render = function () {
     $avatar.src = this.state; // '' => https://robohash.org/yangsangwoo
   };
+
+  this.render();
 }

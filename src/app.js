@@ -13,6 +13,9 @@ export default function App({ $target }) {
   this.$container = makeElement("div", "container");
   $target.appendChild(this.$container);
 
+  this.header = makeElement("header", "header", "Who is it?");
+  this.$container.appendChild(this.header);
+
   this.$avatarContainer = makeElement("div", "avatar-container");
   this.$container.appendChild(this.$avatarContainer);
 
@@ -20,8 +23,8 @@ export default function App({ $target }) {
   this.$container.appendChild(this.$btnContainer);
 
   this.state = {
-    src: "",
-    nickName: "yangsangwoo",
+    src: "https://robohash.org/random nick name",
+    nickName: "random nick name",
   };
 
   this.setState = function (nextState) {
@@ -38,7 +41,7 @@ export default function App({ $target }) {
           return alert("Please enter your name and click generate");
         }
 
-        const dataUrl = await htmlToImage.toPng($target);
+        const dataUrl = await htmlToImage.toPng(this.$avatarContainer);
         const t = document.createElement("textarea");
         document.body.appendChild(t);
         t.value = dataUrl;

@@ -19,4 +19,5 @@ export function NickNameComponent({ $target, initialState }) {
         </div>
     `;
   };
+  this.render();
 }
