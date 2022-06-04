@@ -6,6 +6,8 @@ import {
 } from "./components/index.js";
 import { getFetch } from "./utils/getFetch.js";
 import { makeElement } from "./utils/makeElement.js";
+import * as htmlToImage from "html-to-image";
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
 
 export default function App({ $target }) {
   this.$avatarBox = makeElement("div", { className: "avatar-box" });
@@ -13,7 +15,7 @@ export default function App({ $target }) {
 
   this.state = {
     src: "",
-    nickName: "",
+    nickName: "yangsangwoo",
   };
 
   this.setState = function (nextState) {
@@ -25,7 +27,24 @@ export default function App({ $target }) {
 
   new CopyBtn({
     $target,
-    onClick: () => {},
+    onClick: async () => {
+      try {
+        if (this.state.src === "" || this.state.nickName === "") {
+          return alert("Please enter your name and click generate");
+        }
+
+        const dataUrl = await htmlToImage.toPng($target);
+        const t = document.createElement("textarea");
+        document.body.appendChild(t);
+        t.value = dataUrl;
+        t.select();
+        document.execCommand("copy");
+        document.body.removeChild(t);
+        alert(`Avatar of ${this.state.nickName} is copied to your clipboard`);
+      } catch (e) {
+        console.error("oops, something went wrong!", e);
+      }
+    },
   });
 
   new GeneratorBtn({

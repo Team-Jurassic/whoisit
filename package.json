@@ -21,7 +21,9 @@
   "homepage": "https://github.com/Team-Jurassic/whoisit#readme",
   "dependencies": {
     "core-js": "^3.22.8",
+    "downloadjs": "^1.4.7",
     "html-to-image": "^1.9.0",
+    "html2canvas": "^1.4.1",
     "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
