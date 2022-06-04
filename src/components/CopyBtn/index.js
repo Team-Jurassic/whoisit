@@ -5,6 +5,7 @@ export function CopyBtn({ $target, onClick }) {
   $target.appendChild($btn);
 
   $btn.addEventListener("click", (e) => {
+    console.log("copyBtn");
     onClick();
   });
 }

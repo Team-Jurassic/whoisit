@@ -1,19 +1,31 @@
-import { CopyBtn, GeneratorBtn, Avatar } from "./components/index.js";
+import {
+  CopyBtn,
+  GeneratorBtn,
+  Avatar,
+  NickNameComponent,
+} from "./components/index.js";
+import { getFetch } from "./utils/getFetch.js";
+import { makeElement } from "./utils/makeElement.js";
 import * as htmlToImage from "html-to-image";
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
 
 export default function App({ $target }) {
+  this.$avatarBox = makeElement("div", { className: "avatar-box" });
+  $target.appendChild(this.$avatarBox);
+
   this.state = {
     src: "",
     nickName: "yangsangwoo",
   };
 
   this.setState = function (nextState) {
+    console.log("app", nextState);
     this.state = nextState;
     avatar.setState(this.state.src);
+    nickNameComponent.setState(this.state.nickName);
   };
 
-  const copyBtn = new CopyBtn({
+  new CopyBtn({
     $target,
     onClick: async () => {
       try {
@@ -35,16 +47,22 @@ export default function App({ $target }) {
     },
   });
 
-  const generatorBtn = new GeneratorBtn({
+  new GeneratorBtn({
     $target,
     onClick: async () => {
       try {
-        const res = await fetch(`https://robohash.org/${this.state.nickName}`);
+        const nameData = await getFetch(
+          `https://random-data-api.com/api/name/random_name`
+        );
+        const nickName = nameData.name;
+        console.log(nickName);
+        const res = await fetch(`https://robohash.org/${nickName}`);
+
         if (!res.ok) {
           throw new Error("Something went wrong");
         }
-        const data = res.url;
-        this.setState({ ...this.state, src: data });
+        const src = res.url;
+        this.setState({ ...this.state, src, nickName });
       } catch (err) {
         console.log(err);
       }
@@ -54,5 +72,10 @@ export default function App({ $target }) {
   const avatar = new Avatar({
     $target,
     initialState: this.state.src,
+  });
+
+  const nickNameComponent = new NickNameComponent({
+    $target,
+    initialState: this.state.nickName,
   });
 }

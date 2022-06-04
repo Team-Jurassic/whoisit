@@ -5,8 +5,9 @@ export function GeneratorBtn({ $target, onClick }) {
   $target.appendChild($btn);
 
   $btn.addEventListener("click", (e) => {
+    console.log("generatorBtn");
     if (e.target.tagName !== "BUTTON") {
-      return
+      return;
     }
     onClick();
   });
