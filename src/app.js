@@ -6,8 +6,8 @@ import {
 } from "./components/index.js";
 import { getFetch } from "./utils/getFetch.js";
 import { makeElement } from "./utils/makeElement.js";
-import * as htmlToImage from "html-to-image";
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
+import * as htmlToImage from "../node_modules/html-to-image/dist/html-to-image.js";
+
 
 export default function App({ $target }) {
   this.$container = makeElement("div", "container");
