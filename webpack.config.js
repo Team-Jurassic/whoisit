@@ -39,7 +39,7 @@ const config = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: "./src/index.html" }),
+    new HtmlWebpackPlugin({ template: "./index.html" }),
     new MiniCssExtractPlugin(),
   ],
   devtool: "eval-cheap-module-source-map",
