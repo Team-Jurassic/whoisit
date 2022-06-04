@@ -10,8 +10,14 @@ import * as htmlToImage from "html-to-image";
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
 
 export default function App({ $target }) {
-  this.$avatarBox = makeElement("div", { className: "avatar-box" });
-  $target.appendChild(this.$avatarBox);
+  this.$container = makeElement("div", "container");
+  $target.appendChild(this.$container);
+
+  this.$avatarContainer = makeElement("div", "avatar-container");
+  this.$container.appendChild(this.$avatarContainer);
+
+  this.$btnContainer = makeElement("div", "btn-container");
+  this.$container.appendChild(this.$btnContainer);
 
   this.state = {
     src: "",
@@ -19,14 +25,13 @@ export default function App({ $target }) {
   };
 
   this.setState = function (nextState) {
-    console.log("app", nextState);
     this.state = nextState;
     avatar.setState(this.state.src);
     nickNameComponent.setState(this.state.nickName);
   };
 
   new CopyBtn({
-    $target,
+    $target: this.$btnContainer,
     onClick: async () => {
       try {
         if (this.state.src === "" || this.state.nickName === "") {
@@ -48,7 +53,7 @@ export default function App({ $target }) {
   });
 
   new GeneratorBtn({
-    $target,
+    $target: this.$btnContainer,
     onClick: async () => {
       try {
         const nameData = await getFetch(
@@ -70,12 +75,12 @@ export default function App({ $target }) {
   });
 
   const avatar = new Avatar({
-    $target,
+    $target: this.$avatarContainer,
     initialState: this.state.src,
   });
 
   const nickNameComponent = new NickNameComponent({
-    $target,
+    $target: this.$avatarContainer,
     initialState: this.state.nickName,
   });
 }
