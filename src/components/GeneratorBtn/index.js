@@ -1,6 +1,6 @@
 export function GeneratorBtn({ $target, onClick }) {
   const $btn = document.createElement("button");
-  $btn.innerText = "generate";
+  $btn.innerText = "Generate";
   $btn.classList.add("copy-btn");
   $target.appendChild($btn);
 
